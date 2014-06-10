@@ -12,59 +12,51 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp"
         android:ems="10"
-        android:inputType="numberDecimal|numberSigned"
-        android:hint="Enter bill amount" >
+        android:hint="Enter bill amount"
+        android:inputType="numberDecimal|numberSigned" >
+
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/fifteenPercentId"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="onClickTipAmountFifteenPercent"
-        android:text="15%" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tenPercentId"
-        android:layout_below="@+id/tenPercentId"
+        android:layout_alignLeft="@+id/billAmtId"
+        android:layout_centerVertical="true"
         android:layout_marginTop="74dp"
         android:layout_toLeftOf="@+id/computedAmountId"
         android:text="Tip is:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/tenPercentId"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/billAmtId"
-        android:layout_centerVertical="true"
-        android:onClick="onClickTipAmountTenPercent"
-        android:text="10%" />
-
-    <Button
-        android:id="@+id/twentyPercentId"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_alignRight="@+id/billAmtId"
-        android:onClick="onClickTipAmountTwentyPercent"
-        android:text="20%" />
 
     <TextView
         android:id="@+id/computedAmountId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView1"
-        android:layout_alignRight="@+id/twentyPercentId"
+        android:layout_alignRight="@+id/billAmtId"
         android:gravity="left"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <SeekBar
+        android:id="@+id/tipPercentageId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/billAmtId"
+        android:layout_alignRight="@+id/billAmtId"
+        android:layout_below="@+id/billAmtId"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/percentageValueTextId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tipPercentageId"
+        android:layout_alignRight="@+id/tipPercentageId"
+        android:layout_below="@+id/tipPercentageId"
+        android:layout_marginLeft="18dp"
+        android:gravity="center"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
