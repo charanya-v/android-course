@@ -9,10 +9,11 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 public class ImageSearchSettingsActivity extends Activity {
 	private static final String SEARCH_KEY = "searchSettings";
-	private ImageSearchSettings searchSettings = new ImageSearchSettings();
+	private static final ImageSearchSettings searchSettings = new ImageSearchSettings();
 	Spinner imageSizeSpinner;
 	Spinner colorSpinner;
 	Spinner imageTypeSpinner;
@@ -44,6 +45,7 @@ public class ImageSearchSettingsActivity extends Activity {
 		sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		sizeSpinner.setAdapter(sizeAdapter);
+		setSpinnerToValue(sizeSpinner, searchSettings.getImageSize());
 		sizeSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override
@@ -59,6 +61,9 @@ public class ImageSearchSettingsActivity extends Activity {
 			}
 		});
 		
+		
+		
+		
 		Spinner typeSpinner = (Spinner) findViewById(R.id.imageTypeSpinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
@@ -67,6 +72,7 @@ public class ImageSearchSettingsActivity extends Activity {
 		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		typeSpinner.setAdapter(typeAdapter);
+		setSpinnerToValue(typeSpinner, searchSettings.getImageType());
 		typeSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override
@@ -92,6 +98,7 @@ public class ImageSearchSettingsActivity extends Activity {
 		colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		colorSpinner.setAdapter(colorAdapter);
+		setSpinnerToValue(colorSpinner, searchSettings.getColorFilter());
 		colorSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override
@@ -109,5 +116,17 @@ public class ImageSearchSettingsActivity extends Activity {
 		
 		sitesEditText = (EditText) findViewById(R.id.sitesEditText);
 	}
+	
+	public void setSpinnerToValue(Spinner spinner, String value) {
+		int index = 0;
+		SpinnerAdapter adapter = spinner.getAdapter();
+		for (int i = 0; i < adapter.getCount(); i++) {
+			if (adapter.getItem(i).equals(value)) {
+				index = i;
+			}
+		}
+		spinner.setSelection(index);
+	}
+
 	
 }

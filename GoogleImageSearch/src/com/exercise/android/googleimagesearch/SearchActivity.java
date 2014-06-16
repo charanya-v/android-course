@@ -20,7 +20,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,6 +31,7 @@ public class SearchActivity extends Activity {
 	GridView gvResults;
 	private ImageSearchSettings searchSettings;
 	private static final String SEARCH_KEY = "searchSettings";
+	private static final String DEFAULT_SELECTION = "Default";
 	
 	List<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
@@ -58,17 +58,17 @@ public class SearchActivity extends Activity {
 		
 		 // Attach the listener to the AdapterView onCreate
         gvResults.setOnScrollListener(new EndlessScrollListener() {
-	    @Override
-	    public void onLoadMore(int page, int totalItemsCount) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to your AdapterView
-	        customLoadMoreDataFromApi(page); 
-                // or customLoadMoreDataFromApi(totalItemsCount); 
-	    }
-
-		private void customLoadMoreDataFromApi(int offset) {
-			fetchImages();
-		}
+		    @Override
+		    public void onLoadMore(int page, int totalItemsCount) {
+	                // Triggered only when new data needs to be appended to the list
+	                // Add whatever code is needed to append new items to your AdapterView
+		        //customLoadMoreDataFromApi(page); 
+	                customLoadMoreDataFromApi(totalItemsCount); 
+		    }
+	
+			private void customLoadMoreDataFromApi(int offset) {
+				fetchImages(offset, false);
+			}
         });
 		
 	}
@@ -89,17 +89,15 @@ public class SearchActivity extends Activity {
 	
 
 	public void onImageSearch(View v){
-		String query = etQuery.getText().toString();
-		Toast.makeText(this, "Searching for " + query, Toast.LENGTH_SHORT).show();
-		fetchImages();
+		fetchImages(0, true);
 	}
 	
-	private void fetchImages() {
+	private void fetchImages(int offset, boolean isFreshSearch) {
 		String query = etQuery.getText().toString();
 		AsyncHttpClient client = new AsyncHttpClient();
 		//https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=barack%20obama&userip=INSERT-USER-IP
 		String httpQuery = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
-	            "start=" + 0 + "&v=1.0" ;
+	            "start=" + offset + "&v=1.0" ;
 		
 		if (null != searchSettings) {
 			httpQuery += "&imgcolor=" + searchSettings.getColorFilter();
@@ -109,15 +107,19 @@ public class SearchActivity extends Activity {
 		}
 		
 		httpQuery += "&q=";
+		Log.d("DEBUG", httpQuery + Uri.encode(query));
+		if (isFreshSearch) {
+			imageResults.clear();
+		}
 		
 		client.get(httpQuery + Uri.encode(query), new JsonHttpResponseHandler(){
+				
 				@Override
 				public void onSuccess(JSONObject response) {
 					JSONArray imageJsonResults = null;
 					Log.d("DEBUG", response.toString());
 					try {
 						imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
-						imageResults.clear();
 						imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
 						Log.d("DEBUG", imageResults.toString());
 					} catch (JSONException e) {
@@ -129,7 +131,6 @@ public class SearchActivity extends Activity {
 	}
 	
 	public void onSettings(MenuItem mi) {
-        Toast.makeText(this, "Click!", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, ImageSearchSettingsActivity.class);
         
         //pass data
@@ -143,8 +144,7 @@ public class SearchActivity extends Activity {
  		if (resultCode == RESULT_OK) {
  			if (requestCode == 50) {
  				searchSettings = (ImageSearchSettings) data.getSerializableExtra(SEARCH_KEY);
- 				fetchImages();
- 				Toast.makeText(this, searchSettings.toString(), Toast.LENGTH_SHORT).show();
+ 				fetchImages(0, true);
  			}
  		}
 	}

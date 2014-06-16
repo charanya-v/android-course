@@ -12,6 +12,7 @@
     <string name="save">Save</string>
 
      <string-array name="color_filters_array">
+        <item>Default</item>
         <item>black</item>
         <item>blue</item>
         <item>brown</item>
@@ -27,6 +28,7 @@
     </string-array>
     
      <string-array name="size_filters_array">
+        <item>Default</item>
         <item>icon</item>
         <item>medium</item>
         <item>xxlarge</item>
@@ -34,6 +36,7 @@
     </string-array>
     
      <string-array name="type_filters_array">
+        <item>Default</item>
         <item>face</item>
         <item>photo</item>
         <item>clipart</item>
