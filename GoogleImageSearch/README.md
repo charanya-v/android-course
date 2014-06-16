@@ -15,4 +15,4 @@ Completed user stories:
 -User can tap on any image in results to see the image full-screen
 -User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
 
-![alt tag](TipCalculator.gif)
+![alt tag](GoogleImageSearch.gif)
