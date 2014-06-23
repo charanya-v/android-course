@@ -88,7 +88,7 @@ public class TimelineActivity extends Activity {
  				JSONObject jsonTweet;
  				try {
  					jsonTweet = new JSONObject(i.getExtras().getString("jsonTweet"));
- 					aTweets.add(Tweet.fromJson(jsonTweet));
+ 					aTweets.insert(Tweet.fromJson(jsonTweet), 0);
  				} catch (JSONException e) {
  					e.printStackTrace();
  					return;
