@@ -27,4 +27,13 @@
         android:layout_below="@+id/tvUserName"
         android:text="This is the Tweet Body" />
 
+    <TextView
+        android:id="@+id/tvRelativeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvBody"
+        android:text="2 hrs ago"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>
