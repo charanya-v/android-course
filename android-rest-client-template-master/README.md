@@ -14,4 +14,4 @@ User can click a “Compose” icon in the Action Bar on the top right
 User will have a Compose view opened
 User can enter a message and hit a button to post to twitter
 User should be taken back to home timeline with new tweet visible
-![alt tag](GoogleImageSearch.gif)
+![alt tag](BasicTwitterClient.gif)
